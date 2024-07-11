@@ -52,7 +52,7 @@ const EmployerDashboard = () => {
   // }
 
   return (
-    <div className='flex bg-gray-100 lg:h-screen'>
+    <div className='flex bg-gray-100'>
       <aside className='hidden sm:flex sm:flex-col'>
         <div className='flex-grow flex flex-col justify-between text-gray-500 bg-gray-800'>
           <nav className='flex flex-col mx-4 my-6 space-y-4'>

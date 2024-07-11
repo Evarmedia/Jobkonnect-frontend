@@ -5,25 +5,31 @@ import { MdClose } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-const user_id =localStorage.getItem("user_id")
-const menuItems = [
-  { title: "HOME", link: "/" },
-  { title: "APPLICATIONS", link: `/dashboard/${user_id}` },
-  { title: "ABOUT", link: "/about" },
-  { title: "CONTACT", link: "/contact" },
-];
+// const user_id =localStorage.getItem("user_id")
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  
+  
   const { user_id, logout } = useContext(AuthContext);
 
+  const menuItems = [
+    { title: "HOME", link: "/" },
+    { title: "APPLICATIONS", link: `/dashboard/${user_id}` },
+    { title: "ABOUT", link: "/about" },
+    { title: "CONTACT", link: "/contact" },
+  ];
+  
   const handleLogout = () => {
     logout();
   };
+  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  
+  useEffect(()=>{}, []);
+
 
   return (
     <>
