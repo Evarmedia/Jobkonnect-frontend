@@ -18,7 +18,7 @@ const CreateJob = () => {
   };
 
   return (
-    <div>
+    <div className="p-5">
       <h1 className='text-2xl font-bold mb-4'>Create Job</h1>
       <form onSubmit={handleSubmit}>
         {/* JobTitle */}
@@ -152,6 +152,9 @@ const CreateJob = () => {
         >
           Create Job
         </button>
+        
+
+        
       </form>
     </div>
   );

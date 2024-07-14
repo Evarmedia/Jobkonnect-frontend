@@ -1,15 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
-import { FaFacebookF, FaYoutube, FaLinkedin } from "react-icons/fa";
+import { FaFacebookF, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Footer = () => {
   const { isAuthorized } = useContext(AuthContext);
 
   return (
-    <footer className={`bg-[#18191c] h-fit py-4 md:py-6 lg:py-8 px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center ${isAuthorized ? 'block' : 'hidden'}`}>
+    <footer
+      className={`bg-[#18191c] h-fit py-4 md:py-6 lg:py-8 px-4 sm:px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center ${
+        isAuthorized ? "block" : "hidden"
+      }`}
+    >
       <div className="text-sm text-[#f1f3f6]">
         &copy; All Rights Reserved By Tatenda && Mishak.
       </div>

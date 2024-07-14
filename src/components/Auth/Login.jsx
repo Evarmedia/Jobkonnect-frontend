@@ -4,7 +4,8 @@ import React, { useContext, useState } from "react";
 import { FaEyeSlash, FaUserPlus } from "react-icons/fa";
 import { NavLink, useNavigate, } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
+
 
 const Login = () => {
   const [role, setRole] = useState("");

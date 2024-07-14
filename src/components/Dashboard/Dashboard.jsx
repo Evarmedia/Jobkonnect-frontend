@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import JobSeekerDashboard from "./JobSeekerDashboard";
-import EmployerDashboard from "./EmployerDashboard";
-import Loading from "../Shared/Loading"
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
+import Loading from "../Shared/Loading";
+import EmployerDashboard from "./EmployerDashboard";
+import JobSeekerDashboard from "./JobSeekerDashboard";
 
 const Dashboard = () => {
   const { isAuthorized, user_id } = useContext(AuthContext);

@@ -3,8 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-
+import { AuthContext } from "../../../context/AuthContext";
 // const user_id =localStorage.getItem("user_id")
 
 const Navbar = () => {
@@ -15,7 +14,8 @@ const Navbar = () => {
 
   const menuItems = [
     { title: "HOME", link: "/" },
-    { title: "APPLICATIONS", link: `/dashboard/${user_id}` },
+    { title: "APPLICATIONS", link: `my_applications` },
+    { title: "JOBS", link: `/dashboard/${user_id}` },
     { title: "ABOUT", link: "/about" },
     { title: "CONTACT", link: "/contact" },
   ];

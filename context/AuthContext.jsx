@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-// AuthContext.jsx
-import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -18,28 +16,28 @@ export const AuthProvider = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [role, setRole] = useState("");
   const [user_id, setUser_id] = useState(null);
-
+  const [user, setUser] = useState({});
   const [initialLoad, setInitialLoad] = useState(true); // Add state to handle initial load
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("user_id");
     const storedRole = localStorage.getItem("role");
-    if (storedUserId && storedRole) {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUserId && storedRole && storedUser) {
       setIsAuthorized(true);
       setUser_id(storedUserId);
-      if (initialLoad) { // Only navigate on initial load
-        // if (storedRole === "employer") {
-        //   navigate(`/employer_dash/${storedUserId}`);
-        // } else {
-        //   navigate(`/jobseeker_dash/${storedUserId}`);
-        // }
-        navigate(`/dashboard/${storedUserId}`)
-        setInitialLoad(false); // Set initialLoad to false after navigation
+      setRole(storedRole);
+      setUser(JSON.parse(storedUser)); // Parse the stored user object
+
+      if (initialLoad) {
+        navigate(`/dashboard/${storedUserId}`);
+        setInitialLoad(false);
       }
     } else {
-      setInitialLoad(false); // If no user data, set initialLoad to false
+      setInitialLoad(false);
     }
-  }, [navigate, initialLoad]); // Add initialLoad to the dependency array
+  }, [navigate, initialLoad]);
 
   // manage Login
   const handleLogin = async (credentials) => {
@@ -55,39 +53,33 @@ export const AuthProvider = ({ children }) => {
           },
         }
       );
-
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user_id", response.data.user_id);
-      localStorage.setItem("role", response.data.role);
+      localStorage.setItem("user_id", response.data.user.id);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("role", response.data.user.role);
 
-      setRole(response.data.role);
-      setUser_id(response.data.user_id);
+      // console.log(response.data.user);
+      setUser(response.data.user);
+      setRole(response.data.user.role); // note remove sub states and use only user later
+      setUser_id(response.data.user.id);
       setIsAuthorized(true);
-
-      // if (response.data.role === "employer") {
-      //   navigate(`/employer_dash/${response.data.user_id}`);
-      // } else {
-      //   navigate(`/jobseeker_dash/${response.data.user_id}`);
-      // }
-      navigate(`/dashboard/${response.data.user_id}`)
+      navigate(`/dashboard/${response.data.user.id}`);
     } catch (error) {
       console.warn(error.response.data.message);
       toast.warn(error.response.data.message);
     }
   };
 
-  //  manage Register
+  // manage Register
   const handleRegister = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/register",
+        `http://localhost:5000/api/user/register`,
         data
       );
 
       console.log("Registration successful:", response.data);
-
       // After successful registration, you might want to automatically log in the user
-      // For simplicity, you can call handleLogin to perform the login after registration
       handleLogin({ email: data.email, password: data.password });
     } catch (error) {
       console.error(error.response.data.message);
@@ -97,16 +89,10 @@ export const AuthProvider = ({ children }) => {
   // manage logout
   const logout = async () => {
     try {
-      // const tokenExpiry = localStorage.getItem("tokenExpiry");
-
-      // if (tokenExpiry && Date.now() > tokenExpiry) {
-      //   console.log("Token has expired, logging out");
-      // }
-
       localStorage.removeItem("token");
       localStorage.removeItem("user_id");
       localStorage.removeItem("role");
-      // localStorage.removeItem("tokenExpiry");
+      localStorage.removeItem("user");
       setIsAuthorized(false);
       setUser_id(null);
       setRole(null);
@@ -127,6 +113,7 @@ export const AuthProvider = ({ children }) => {
         handleRegister,
         logout,
         role,
+        user,
       }}
     >
       {children}

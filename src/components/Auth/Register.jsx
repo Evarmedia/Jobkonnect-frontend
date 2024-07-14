@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
-import axios from "axios";
 import React, { useContext, useState } from "react";
 import { FaEyeSlash, FaPencilAlt, FaRegUser } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Register = () => {
   const [role, setRole] = useState("");
@@ -48,7 +47,6 @@ const Register = () => {
       website,
       address,
       phone_number: phone,
-      // image: image,
     };
     try {
       if(!email || !role || !password) {
@@ -63,7 +61,6 @@ const Register = () => {
     } catch (error) {
       console.error(error.response ? error.response.data.error : error.message);
     }
-    console.log("Form submitted!");
   };
 
   return (

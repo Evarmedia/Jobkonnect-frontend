@@ -2,76 +2,30 @@ const Overview = () => {
   return (
     <div>
       {/* Overview */}
-      <div className='flex flex-col space-y-6'>
+      <div className='p-5 flex flex-col space-y-6'>
         <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6'>
           <div className='bg-white border rounded-lg p-5 flex items-center justify-between'>
             <div className='flex items-center space-x-2 text-sm text-gray-400'>
-              <svg
-                className='h-5 w-5'
-                fill='none'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-              >
-                <path d='M7 8h10M7 12h4m-2 8h2' />
-              </svg>
+            <h3>Icon</h3>
               <span>Applications</span>
             </div>
             <span className='text-lg font-semibold text-gray-700'>22</span>
           </div>
           <div className='bg-white border rounded-lg p-5 flex items-center justify-between'>
             <div className='flex items-center space-x-2 text-sm text-gray-400'>
-              <svg
-                className='h-5 w-5'
-                fill='none'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-              >
-                <path d='M7 8h10M7 12h4m-2 8h2' />
-              </svg>
+            <h3>Icon</h3>
               <span>Jobs</span>
             </div>
             <span className='text-lg font-semibold text-gray-700'>12</span>
           </div>
           <div className='bg-white border rounded-lg p-5 flex items-center justify-between'>
             <div className='flex items-center space-x-2 text-sm text-gray-400'>
-              <svg
-                className='h-5 w-5'
-                fill='none'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-              >
-                <path d='M7 8h10M7 12h4m-2 8h2' />
-              </svg>
+            <h3>Icon</h3>
+
               <span>Notification</span>
             </div>
             <span className='text-lg font-semibold text-gray-700'>8</span>
           </div>
-          {/* <div className='bg-white border rounded-lg p-5 flex items-center justify-between'>
-                <div className='flex items-center space-x-2 text-sm text-gray-400'>
-                  <svg
-                    className='h-5 w-5'
-                    fill='none'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path d='M7 8h10M7 12h4m-2 8h2' />
-                  </svg>
-                  <span>Tasks</span>
-                </div>
-                <span className='text-lg font-semibold text-gray-700'>15</span>
-              </div> */}
         </div>
         <div className='bg-white border rounded-lg p-5'>
           <div className='flex items-center justify-between mb-4'>
