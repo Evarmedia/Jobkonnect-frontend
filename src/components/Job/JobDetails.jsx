@@ -1,28 +1,32 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { JobContext } from "../../../context/Jobcontext";
+import Loading from "../Shared/Loading";
 
 const JobDetails = () => {
-  const { jobId } = useParams();
-  const [job, setJob] = useState(null);
+  const { job_id } = useParams();
+  
+  const [job, setJob] = useState({});
+  
+  const { getSingleJob } = useContext(JobContext)
 
   useEffect(() => {
-    const fetchJobDetails = async () => {
+    const fetchJob = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/jobs/${jobId}`);
-        setJob(response.data);
+        const jobDetails = await getSingleJob(job_id);
+        setJob(jobDetails);
       } catch (error) {
         console.error("Error fetching job details:", error);
       }
     };
 
-    fetchJobDetails();
-  }, [jobId]);
+    fetchJob();
+  }, [job_id, getSingleJob]);
 
   if (!job) {
-    return <div>Loading...</div>;
+    return <div><Loading /></div>;
   }
-
+  // console.log(job);
   return (
     <div className="m-10 max-w-3xl p-6 border rounded-lg shadow bg-gray-800 border-gray-700">
       <h1 className="text-3xl capitalize text-gray-300  font-bold mb-4"><span className="text-white font-semibold">Job title:</span> {job.title} </h1>

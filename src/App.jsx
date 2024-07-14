@@ -26,7 +26,7 @@ function App() {
                 <Route path='/register' element={<Register />} />
                 <Route path='/my_applications' element={<MyApplications />} />
                 <Route path='/dashboard/:id' element={<Dashboard />} />
-                <Route path='/jobdetails/:jobId' element={<JobDetails />} />
+                <Route path='/jobdetails/:job_id' element={<JobDetails />} />
                 <Route path='*' element={<NotFound />} />
               </Routes>
             </main>

@@ -8,6 +8,7 @@ export const AuthContext = createContext({
   handleLogin: () => {},
   handleRegister: () => {},
   logout: () => {},
+  user_id: null,
 });
 
 // eslint-disable-next-line react/prop-types

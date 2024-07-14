@@ -1,10 +1,30 @@
 /* eslint-disable react/prop-types */
+import { useContext, useState } from "react";
 import { HiArrowLongRight } from "react-icons/hi2";
+import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { JobContext } from "../../../context/Jobcontext";
+import ConfirmDelete from "../Shared/ConfirmDelete";
 
 const JobCard = ({ job }) => {
+  const { deleteJob } = useContext(JobContext);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleDeleteJob = async () => {
+    setShowPopup(true);
+  };
+
+  const confirmDelete = async () => {
+    await deleteJob(job.id);
+    setShowPopup(false);
+  };
+
+  const cancelDelete = () => {
+    setShowPopup(false);
+  };
+
   return (
-    <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="relative max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 capitalize dark:text-white">
           {job.title}
@@ -22,6 +42,16 @@ const JobCard = ({ job }) => {
         Job Details
         <HiArrowLongRight className="ms-2" />
       </Link>
+      <button onClick={handleDeleteJob}>
+        <IoTrashBin
+          title="Delete Job"
+          className="absolute z-2 text-2xl text-white top-2 right-2 rounded-full bg-red-500 hover:bg-red-900"
+        />
+      </button>
+
+      {showPopup && (
+        <ConfirmDelete confirmDelete={confirmDelete} cancelDelete={cancelDelete}/>
+      )}
     </div>
   );
 };

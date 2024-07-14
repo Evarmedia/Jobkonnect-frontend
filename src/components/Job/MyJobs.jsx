@@ -26,7 +26,6 @@ const MyJobs = () => {
               </>
             ) : (
               <div>
-                {" "}
                 <div><Loading /></div>
               </div>
             )}
@@ -42,7 +41,7 @@ const MyJobs = () => {
                 </div>
               </>
             ) : (
-              <h1 className="text-2xl font-bold mb-5">You Have Not Created any Job
+              <h1 className="text-2xl font-bold mb-5">You Have Not Created any Jobs
               </h1>
 
               
@@ -50,12 +49,6 @@ const MyJobs = () => {
           </div>
         )}
       </section>
-
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {jobs.map((job, index) => (
-          <JobCard key={index} job={job} />
-        ))}
-      </div> */}
     </div>
   );
 };
