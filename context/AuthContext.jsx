@@ -38,12 +38,12 @@ export const AuthProvider = ({ children }) => {
     } else {
       setInitialLoad(false);
     }
-  }, [navigate, initialLoad]);
+  }, [navigate, initialLoad ]);
 
   // manage Login
   const handleLogin = async (credentials) => {
     setIsAuthorized(false);
-
+  
     try {
       const response = await axios.post(
         "http://localhost:5000/api/user/login",
@@ -54,26 +54,29 @@ export const AuthProvider = ({ children }) => {
           },
         }
       );
+      const user = response.data.user;
+      
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user_id", response.data.user.id);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      localStorage.setItem("role", response.data.user.role);
-
-      // console.log(response.data.user);
-      setUser(response.data.user);
-      setRole(response.data.user.role); // note remove sub states and use only user later
-      setUser_id(response.data.user.id);
+      localStorage.setItem("user_id", user.id);
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("role", user.role);
+  
+      setUser(user);
+      setRole(user.role); // note remove sub states and use only user later
+      setUser_id(user.id);
       setIsAuthorized(true);
-      navigate(`/dashboard/${response.data.user.id}`);
+      navigate(`/dashboard/${user.id}`);
+      toast.success(`WELCOME ${user.username.toUpperCase()}`);
     } catch (error) {
-      console.warn(error.response.data.message);
-      toast.warn(error.response.data.message);
+      console.warn(error.response.data.error);
+      toast.warn(error.response.data.error);
     }
   };
 
   // manage Register
   const handleRegister = async (data) => {
     try {
+      console.log("Sending data", data);
       const response = await axios.post(
         `http://localhost:5000/api/user/register`,
         data
@@ -81,9 +84,11 @@ export const AuthProvider = ({ children }) => {
 
       console.log("Registration successful:", response.data);
       // After successful registration, you might want to automatically log in the user
+      toast.success(response.data.message);
       handleLogin({ email: data.email, password: data.password });
     } catch (error) {
-      console.error(error.response.data.message);
+      console.error(error.response.data.error);
+      toast.error(error.response.data.error);
     }
   };
 

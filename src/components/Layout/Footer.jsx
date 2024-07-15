@@ -15,7 +15,7 @@ const Footer = () => {
       }`}
     >
       <div className="text-sm text-[#f1f3f6]">
-        &copy; All Rights Reserved By Tatenda && Mishak.
+        &copy; All Rights Reserved @ JOBKONNECT
       </div>
       <div className="flex gap-4 mt-4 sm:mt-0">
         <Link

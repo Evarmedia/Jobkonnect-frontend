@@ -20,7 +20,6 @@ import CreateJob from "../Job/CreateJob";
 import MyJobs from "../Job/MyJobs";
 import MyApplications from "../Application/MyApplications";
 
-
 const EmployerDashboard = () => {
   const navigate = useNavigate();
 
@@ -28,10 +27,29 @@ const EmployerDashboard = () => {
   const { isAuthorized, user } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [jobType, setJobType] = useState("");
+  const [location, setLocation] = useState("");
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  if (!isAuthorized) {
+    return null;
+  }
 
+  // // incase of a search functionality change
+  // const handleSearchChange = (e) => {
+  //   setSearchQuery(e.target.value);
+  // };
+
+  const handleJobTypeChange = (e) => {
+    setJobType(e.target.value);
+  };
+
+  const handleLocationChange = (e) => {
+    setLocation(e.target.value);
+  };
   const renderView = () => {
     switch (view) {
       case "overview":
@@ -41,10 +59,42 @@ const EmployerDashboard = () => {
       case "createJob":
         return <CreateJob />;
       case "viewjobs":
-          return <div>
-            <h1 className="text-2xl font-bold mt-2">Employer Jobs page</h1>
-            <MyJobs />
-          </div> 
+        return (
+          <div>
+            <h1 className='text-2xl font-bold mt-2'>Employer Jobs page</h1>
+            {/* Filter... Extract to a component later */}
+            <div className='flex space-x-4 mt-4'>
+              <select
+                value={jobType}
+                onChange={handleJobTypeChange}
+                className='p-2 border border-gray-300 font-semibold rounded-md'
+              >
+                <option value=''>All Job Types</option>
+                <option value='full-time'>Full Time</option>
+                <option value='part-time'>Part Time</option>
+                <option value='contract'>Contract</option>
+              </select>
+              <select
+                value={location}
+                onChange={handleLocationChange}
+                className='p-2 border border-gray-300 font-semibold rounded-md'
+              >
+                <option value=''>All Locations</option>
+                <option value='new_york'>New York</option>
+                <option value='san_francisco'>San Francisco</option>
+                <option value='los_angeles'>Los Angeles</option>
+                <option value='Lagos'>Lagos</option>
+              </select>
+            </div>
+            <h3>
+              <MyJobs
+                searchQuery={searchQuery}
+                jobType={jobType}
+                location={location}
+              />
+            </h3>
+          </div>
+        );
       default:
         return <Overview />;
     }
@@ -113,7 +163,7 @@ const EmployerDashboard = () => {
           <div
             className={`${
               isOpen ? "block" : "hidden"
-            } w-max p-2 absolute top-12 left-1 bg-white`}
+            } w-max p-2 absolute top-12 left-1 bg-red-500 lg:hidden`}
           >
             <ul>
               <li
@@ -148,8 +198,11 @@ const EmployerDashboard = () => {
               <MdClose className='text-2xl' />
             )}
           </button>
-            {/* Notification/profile */}
+          {/* Notification/profile */}
           <div className='ml-auto flex items-center'>
+            <h1 className='font-semibold text-lg text-right p-2 capitalize'>
+              Welcome {`${user.username}`}
+            </h1>
             <button className='flex items-center hover:text-purple-600 '>
               <MdOutlineNotificationsNone className='text-2xl' />
             </button>
@@ -168,11 +221,9 @@ const EmployerDashboard = () => {
             </div>
           </div>
         </header>
-        
-        <div className='h-screen p-2 overflow-scroll'>{renderView()}</div>
-        
-      </div>
 
+        <div className='h-screen p-2 overflow-scroll'>{renderView()}</div>
+      </div>
     </div>
   );
 };

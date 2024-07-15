@@ -1,34 +1,48 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { IoSearch } from "react-icons/io5";
 import MyJobs from "../Job/MyJobs";
+
 const JobSeekerDashboard = () => {
   const navigate = useNavigate();
-
   const { isAuthorized, user } = useContext(AuthContext);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [jobType, setJobType] = useState("");
+  const [location, setLocation] = useState("");
 
   useEffect(() => {
-    // Redirect to login if not authorized
     if (!isAuthorized) {
-      navigate("/login"); // Navigate to login route
+      navigate("/login");
     }
   }, [isAuthorized, navigate]);
 
   if (!isAuthorized) {
     return null;
   }
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleJobTypeChange = (e) => {
+    setJobType(e.target.value);
+  };
+
+  const handleLocationChange = (e) => {
+    setLocation(e.target.value);
+  };
+
   return (
-    <section className=''>
+    <section className='h-screen overflow-y-auto'>
       <div className='flex justify-end items-center gap-2 mr-4'>
-        <h1 className='font-bold text-lg text-right p-2'>WELCOME $USER</h1>
+        <h1 className='font-semibold text-lg text-right p-2 capitalize'>Welcome {`${user.username}`}</h1>
         <FaUser className='text-3xl rounded-full border-2 border-red-700 cursor-pointer' />
       </div>
       <div className='flex justify-center flex-col items-center'>
-        {/* Search here */}
-        <div className='m-2'>
+        {/* Search */}
+        <div className=''>
           <label
             htmlFor='search-value'
             className='mb-2 text-sm font-medium sr-only'
@@ -37,13 +51,15 @@ const JobSeekerDashboard = () => {
           </label>
           <div className='relative'>
             <div className='absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none'>
-            <IoSearch className="text-2xl" />
+              <IoSearch className="text-2xl" />
             </div>
             <input
               type='search'
               id='search-value'
               className='block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 focus:ring-blue-500 focus:border-blue-500'
               placeholder='Search for Jobs...'
+              value={searchQuery}
+              onChange={handleSearchChange}
               required
             />
             <button
@@ -55,9 +71,33 @@ const JobSeekerDashboard = () => {
           </div>
         </div>
 
+        {/* filter Functions */}
+        <div className='flex space-x-4 mt-2'>
+          <select
+            value={jobType}
+            onChange={handleJobTypeChange}
+            className='p-2 border border-gray-300 rounded-md'
+          >
+            <option value=''>All Job Types</option>
+            <option value='full-time'>Full Time</option>
+            <option value='part-time'>Part Time</option>
+            <option value='contract'>Contract</option>
+          </select>
+          <select
+            value={location}
+            onChange={handleLocationChange}
+            className='p-2 border border-gray-300 rounded-md'
+          >
+            <option value=''>All Locations</option>
+            <option value='new_york'>New York</option>
+            <option value='san_francisco'>San Francisco</option>
+            <option value='los_angeles'>Los Angeles</option>
+            <option value='Lagos'>Lagos</option>
+          </select>
         </div>
-      <div className="p-4">
-        <h3><MyJobs /></h3>
+      </div>
+      <div className="px-4">
+        <div><MyJobs searchQuery={searchQuery} jobType={jobType} location={location} /></div>
       </div>
     </section>
   );

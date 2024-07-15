@@ -17,36 +17,41 @@ export const JobProvider = ({ children }) => {
 
   const [employer_jobs, setEmployer_jobs] = useState([]);
 
-  const { user_id, isAuthorized } = useContext(AuthContext);
+  const { user_id, isAuthorized, role } = useContext(AuthContext);
   const token = localStorage.getItem("token"); //NB:needed for headers later
 
   useEffect(() => {
     if (!user_id || !isAuthorized) {
       return;
     }
-    const getAllJobs = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/jobs`);
-        setJobs(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getAllJobs();
+    if (role === "job_seeker") {
+      const getAllJobs = async () => {
+        try {
+          const response = await axios.get(`http://localhost:5000/api/jobs`);
+          setJobs(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getAllJobs();
+    } else {
+      const getJobByEmployer = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:5000//api/jobs/employer/${user_id}`
+          );
+          // console.log(response.data[0]);
+          setEmployer_jobs(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getJobByEmployer();
+    }
 
-    const getJobByEmployer = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000//api/jobs/employer/${user_id}`
-        );
-        // console.log(response.data[0]);
-        setEmployer_jobs(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getJobByEmployer();
-  }, [user_id, isAuthorized]);
+  }, [user_id, isAuthorized,role]);
+
+
 
   const createJob = async (data) => {
     try {
@@ -64,6 +69,7 @@ export const JobProvider = ({ children }) => {
       );
       // console.log("Job created successfully:", response.data);
       toast.success("Job created successfully");
+      setEmployer_jobs((prevJobs) => [...prevJobs, response.data]);
       return response.data;
     } catch (error) {
       console.error("Error creating job:", error);
@@ -77,7 +83,6 @@ export const JobProvider = ({ children }) => {
     }
   };
   
-
   const getSingleJob = async (job_id) => {
     try {
       const response = await axios.get(

@@ -5,9 +5,11 @@ import { IoTrashBin } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { JobContext } from "../../../context/Jobcontext";
 import ConfirmDelete from "../Shared/ConfirmDelete";
+import { AuthContext } from "../../../context/AuthContext";
 
 const JobCard = ({ job }) => {
   const { deleteJob } = useContext(JobContext);
+  const { role } = useContext(AuthContext);
   const [showPopup, setShowPopup] = useState(false);
 
   const handleDeleteJob = async () => {
@@ -42,15 +44,18 @@ const JobCard = ({ job }) => {
         Job Details
         <HiArrowLongRight className="ms-2" />
       </Link>
-      <button onClick={handleDeleteJob}>
-        <IoTrashBin
-          title="Delete Job"
-          className="absolute z-2 text-2xl text-white top-2 right-2 rounded-full bg-red-500 hover:bg-red-900"
-        />
-      </button>
+
+      {role === 'employer' && (
+        <button onClick={handleDeleteJob}>
+          <IoTrashBin
+            title="Delete Job"
+            className="absolute z-2 text-2xl text-white top-2 right-2 rounded-full bg-red-500 hover:bg-red-900"
+          />
+        </button>
+      )}
 
       {showPopup && (
-        <ConfirmDelete confirmDelete={confirmDelete} cancelDelete={cancelDelete}/>
+        <ConfirmDelete confirmDelete={confirmDelete} cancelDelete={cancelDelete} />
       )}
     </div>
   );

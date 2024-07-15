@@ -11,6 +11,7 @@ import Footer from "./components/Layout/Footer";
 import Navbar from "./components/Layout/Navbar";
 import NotFound from "./components/NotFound/NotFound";
 import JobDetails from "./components/Job/JobDetails";
+import ApplicationForm from "./components/Application/ApplicationForm";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/my_applications' element={<MyApplications />} />
+                <Route path='/applications_form' element={<ApplicationForm />} />
                 <Route path='/dashboard/:id' element={<Dashboard />} />
                 <Route path='/jobdetails/:job_id' element={<JobDetails />} />
                 <Route path='*' element={<NotFound />} />

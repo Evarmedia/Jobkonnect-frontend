@@ -1,3 +1,6 @@
+import { FaEnvelope, FaSuitcase } from "react-icons/fa";
+import { IoNotifications } from "react-icons/io5";
+
 const Overview = () => {
   return (
     <div>
@@ -6,21 +9,21 @@ const Overview = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6'>
           <div className='bg-white border rounded-lg p-5 flex items-center justify-between'>
             <div className='flex items-center space-x-2 text-sm text-gray-400'>
-            <h3>Icon</h3>
+            <FaEnvelope className="text-lg" />
               <span>Applications</span>
             </div>
             <span className='text-lg font-semibold text-gray-700'>22</span>
           </div>
           <div className='bg-white border rounded-lg p-5 flex items-center justify-between'>
             <div className='flex items-center space-x-2 text-sm text-gray-400'>
-            <h3>Icon</h3>
+            <FaSuitcase className="text-lg" />
               <span>Jobs</span>
             </div>
             <span className='text-lg font-semibold text-gray-700'>12</span>
           </div>
           <div className='bg-white border rounded-lg p-5 flex items-center justify-between'>
             <div className='flex items-center space-x-2 text-sm text-gray-400'>
-            <h3>Icon</h3>
+            <IoNotifications className="text-lg"/>
 
               <span>Notification</span>
             </div>
