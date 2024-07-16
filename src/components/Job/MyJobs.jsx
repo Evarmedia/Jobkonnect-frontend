@@ -12,7 +12,7 @@ const MyJobs = ({ searchQuery, jobType, location }) => {
   // Filter jobs based on the search query, job type, and location
   const filteredJobs = jobs.filter(
     (job) =>
-      job.title?.toLowerCase().includes(searchQuery?.toLowerCase()) &&
+      job.title?.toLowerCase().includes(searchQuery.toLowerCase()) &&
       (jobType === "" || job.job_type === jobType) &&
       (location === "" ||
         job.location?.toLowerCase() === location.toLowerCase())
@@ -20,7 +20,7 @@ const MyJobs = ({ searchQuery, jobType, location }) => {
 
   const filteredEmployerJobs = employer_jobs?.filter(
     (job) =>
-      job.title?.toLowerCase().includes(searchQuery?.toLowerCase()) &&
+      job.title?.toLowerCase().includes(searchQuery.toLowerCase()) &&
       (jobType === "" || job.job_type === jobType) &&
       (location === "" ||
         job.location?.toLowerCase() === location.toLowerCase())

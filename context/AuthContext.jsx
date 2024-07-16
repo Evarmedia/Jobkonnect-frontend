@@ -9,6 +9,7 @@ export const AuthContext = createContext({
   handleRegister: () => {},
   logout: () => {},
   user_id: null,
+  getUserById: () => {},
 });
 
 // eslint-disable-next-line react/prop-types
@@ -92,6 +93,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const getUserById = async (user_id) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/user/${user_id}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // manage logout
   const logout = async () => {
     try {
@@ -120,6 +130,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         role,
         user,
+        getUserById
       }}
     >
       {children}

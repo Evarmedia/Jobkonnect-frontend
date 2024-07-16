@@ -49,8 +49,7 @@ export const JobProvider = ({ children }) => {
       getJobByEmployer();
     }
 
-  }, [user_id, isAuthorized,role]);
-
+  }, [user_id, isAuthorized, role]);
 
 
   const createJob = async (data) => {
@@ -86,7 +85,11 @@ export const JobProvider = ({ children }) => {
   const getSingleJob = async (job_id) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/jobs/${job_id}`
+        `http://localhost:5000/api/jobs/${job_id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       return response.data;
     } catch (error) {
@@ -97,7 +100,11 @@ export const JobProvider = ({ children }) => {
   const deleteJob = async (job_id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/jobs/${job_id}`
+        `http://localhost:5000/api/jobs/${job_id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       setJobs((prevJobs) => prevJobs.filter((job) => job.id !== job_id));

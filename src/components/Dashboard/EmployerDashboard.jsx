@@ -13,12 +13,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 
-import Overview from "./Overview";
 import { BsFillSuitcaseLgFill } from "react-icons/bs";
+import Overview from "./Overview";
 
 import CreateJob from "../Job/CreateJob";
-import MyJobs from "../Job/MyJobs";
 import MyApplications from "../Application/MyApplications";
+import MyJobs from "../Job/MyJobs";
 
 const EmployerDashboard = () => {
   const navigate = useNavigate();

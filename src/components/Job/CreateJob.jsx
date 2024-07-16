@@ -27,8 +27,7 @@ const CreateJob = () => {
     e.preventDefault();
     try {
       await createJob(job);
-      console.log("Job created:", job);
-      // Optionally, you can reset the form or navigate to another page after successful creation
+      // console.log("Job created:", job);
       setJob({
         title: "",
         description: "",

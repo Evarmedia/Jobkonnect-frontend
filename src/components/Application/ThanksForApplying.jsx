@@ -3,7 +3,7 @@ import React from 'react'
 
 const ThanksForApplying = () => {
   return (
-    <div>ThanksForApplying</div>
+    <div>ThanksForApplying Modal</div>
   )
 }
 
