@@ -1,20 +1,21 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { AuthContext } from "../../../context/AuthContext";
 import ResumeModal from "./ResumeModal";
 import ApplicationCard from "./ApplicationCard";
 import { ApplicationContext } from "../../../context/ApplicationContext";
+import { JobContext } from "../../../context/Jobcontext";
 
 const MyApplications = () => {
   const { user, getUserById } = useContext(AuthContext);
-  const { getApplicationbyRole } = useContext(ApplicationContext);
+  const { getApplicationbyRole, } = useContext(ApplicationContext);
+  const { getSingleJob } = useContext(JobContext)
 
   const [applications, setApplications] = useState([]);
+  const [jobDetails, setJobDetails] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [resumeImageUrl, setResumeImageUrl] = useState("");
   const [userDetails, setUserDetails] = useState({});
@@ -27,6 +28,9 @@ const MyApplications = () => {
 
         // Fetch user details based on role
         await handleUserInfo(response);
+
+        // Fetch job details for each application
+        await fetchJobDetails(response);
       } catch (error) {
         console.error("Error fetching applications:", error);
         toast.error(error.message || "Error fetching applications");
@@ -47,8 +51,17 @@ const MyApplications = () => {
       setUserDetails(userDetails);
     };
 
+    const fetchJobDetails = async (applications) => {
+      const jobDetails = {};
+      for (const app of applications) {
+        const job = await getSingleJob(app.job_id);
+        jobDetails[app.id] = job;
+      }
+      setJobDetails(jobDetails);
+    };
+
     manageApplications();
-  }, [getApplicationbyRole, getUserById, user.role]);
+  }, [getApplicationbyRole, getUserById, user.role, getSingleJob]);
 
   const openModal = (imageUrl) => {
     setResumeImageUrl(imageUrl);
@@ -72,10 +85,10 @@ const MyApplications = () => {
   };
 
   return (
-    <section className="my_applications page">
+    <section className="h-screen overflow-auto">
+      <h1 className="text-center font-bold text-2xl mt-4">APPLICATIONS PAGE</h1>
       {user && user.role === "job_seeker" ? (
-        <div className="container">
-          <h1>My Applications</h1>
+        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {applications.length <= 0 ? (
             <h4>No Applications Were Found</h4>
           ) : (
@@ -87,13 +100,14 @@ const MyApplications = () => {
                 openModal={openModal}
                 onDelete={handleDeleteApplication} // Pass the callback function
                 onUpdate={handleUpdateApplication} // Pass the update callback function
+                job_title={jobDetails[application.id]?.title} // Pass the job title
+                job_id ={jobDetails[application.id]?.id} // Pass the job id
               />
             ))
           )}
         </div>
       ) : (
-        <div className="container">
-          <h1>Applications Page</h1>
+        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">          
           {applications.length <= 0 ? (
             <h4>No Applications Found From JobSeekers</h4>
           ) : (
@@ -105,6 +119,7 @@ const MyApplications = () => {
                 openModal={openModal}
                 onDelete={handleDeleteApplication} // Pass the callback function
                 onUpdate={handleUpdateApplication} // Pass the update callback function
+                job_title={jobDetails[application.id]?.title} // Pass the job title
               />
             ))
           )}
@@ -118,73 +133,3 @@ const MyApplications = () => {
 };
 
 export default MyApplications;
-
-
-
-
-const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
-  return (
-    <div className="job_seeker_card">
-      <div className="detail">
-        <p>
-          <span>Name:</span> {element.name}
-        </p>
-        <p>
-          <span>Email:</span> {element.email}
-        </p>
-        <p>
-          <span>Phone:</span> {element.phone}
-        </p>
-        <p>
-          <span>Address:</span> {element.address}
-        </p>
-        <p>
-          <span>CoverLetter:</span> {element.coverLetter}
-        </p>
-      </div>
-      <div className="resume">
-        <img
-          src={element.resume.url}
-          alt="resume"
-          onClick={() => openModal(element.resume.url)}
-        />
-      </div>
-      <div className="btn_area">
-        <button onClick={() => deleteApplication(element._id)}>
-          Delete Application
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const EmployerCard = ({ element, openModal }) => {
-  return (
-    <div className="job_seeker_card">
-      <div className="detail">
-        <p>
-          <span>Name:</span> {element.name}
-        </p>
-        <p>
-          <span>Email:</span> {element.email}
-        </p>
-        <p>
-          <span>Phone:</span> {element.phone}
-        </p>
-        <p>
-          <span>Address:</span> {element.address}
-        </p>
-        <p>
-          <span>CoverLetter:</span> {element.coverLetter}
-        </p>
-      </div>
-      <div className="resume">
-        <img
-          src={element.resume.url}
-          alt="resume"
-          onClick={() => openModal(element.resume.url)}
-        />
-      </div>
-    </div>
-  );
-};

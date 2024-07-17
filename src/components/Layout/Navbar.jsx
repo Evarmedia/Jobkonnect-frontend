@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const menuItems = [
     { title: "HOME", link: "/" },
-    { title: "APPLICATIONS", link: `my_applications` },
+    // { title: "APPLICATIONS", link: `my_applications` },
     { title: "JOBS", link: `/dashboard/${user_id}` },
     { title: "ABOUT", link: "/about" },
     { title: "CONTACT", link: "/contact" },

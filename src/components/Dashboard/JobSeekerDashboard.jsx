@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { IoSearch } from "react-icons/io5";
 import MyJobs from "../Job/MyJobs";
@@ -35,10 +35,18 @@ const JobSeekerDashboard = () => {
   };
 
   return (
-    <section className='h-screen overflow-y-auto'>
-      <div className='flex justify-end items-center gap-2 mr-4'>
-        <h1 className='font-semibold text-lg text-right p-2 capitalize'>Welcome {`${user.username}`}</h1>
-        <FaUser className='text-3xl rounded-full border-2 border-red-700 cursor-pointer' />
+    <section className='h-screen overflow-y-auto pb-10'>
+      {/* user navbar */}
+      <div className='flex justify-between items-center gap-2 mr-2 sm:mr-4 '>
+       <NavLink to={`/my_applications`}>
+         <h1 className="shadow-md p-2 hover:text-blue-600 hover:underline hover:shadow-none font-semibold text-lg tracking-tight">Applications</h1>
+       </NavLink>
+       <div className="flex items-center gap-2 p-2  ">
+         <h1 className='font-semibold text-lg capitalize'>
+           Welcome {`${user.username}`}
+         </h1>
+         <FaUser className='text-3xl rounded-full border-2 border-red-700 cursor-pointer' />
+       </div>
       </div>
       <div className='flex justify-center flex-col items-center'>
         {/* Search */}
@@ -51,7 +59,7 @@ const JobSeekerDashboard = () => {
           </label>
           <div className='relative'>
             <div className='absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none'>
-              <IoSearch className="text-2xl" />
+              <IoSearch className='text-2xl' />
             </div>
             <input
               type='search'
@@ -89,15 +97,21 @@ const JobSeekerDashboard = () => {
             className='p-2 border border-gray-300 rounded-md'
           >
             <option value=''>All Locations</option>
-            <option value='new_york'>New York</option>
-            <option value='san_francisco'>San Francisco</option>
-            <option value='los_angeles'>Los Angeles</option>
+            <option value='nairobi'>Nairobi</option>
+            <option value='south africa'>South Africa</option>
+            <option value='london'>London</option>
             <option value='Lagos'>Lagos</option>
           </select>
         </div>
       </div>
-      <div className="px-4">
-        <div><MyJobs searchQuery={searchQuery} jobType={jobType} location={location} /></div>
+      <div className='px-4'>
+        <div>
+          <MyJobs
+            searchQuery={searchQuery}
+            jobType={jobType}
+            location={location}
+          />
+        </div>
       </div>
     </section>
   );

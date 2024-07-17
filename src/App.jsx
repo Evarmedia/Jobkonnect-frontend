@@ -14,6 +14,8 @@ import Footer from "./components/Layout/Footer";
 import Navbar from "./components/Layout/Navbar";
 import NotFound from "./components/NotFound/NotFound";
 import ApplicationsDetails from "./components/Application/ApplicationsDetails";
+import AboutPage from "./components/About/AboutPage";
+import ContactPage from "./components/About/ContactPage";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
                   <Route path='/applications_form/:job_id'element={<ApplicationForm />}/>
                   <Route path='/dashboard/:id' element={<Dashboard />} />
                   <Route path='/jobdetails/:job_id' element={<JobDetails />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
                   <Route path='*' element={<NotFound />} />
                 </Routes>
               </main>

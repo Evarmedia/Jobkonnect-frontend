@@ -28,7 +28,7 @@ const MyJobs = ({ searchQuery, jobType, location }) => {
 
   return (
     <div className='pt-5'>
-      <section className='my_applications page'>
+      <section className=''>
         {user && role === "job_seeker" ? (
           <div>
             <h1 className='text-center text-2xl font-bold mb-5'>

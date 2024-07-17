@@ -34,9 +34,11 @@ const JobCard = ({ job }) => {
           </h5>
         </NavLink>
         <p className='text-gray-400 capitalize'>{job.job_type}</p>
-        <p className='mb-3 font-normal text-gray-400'>
-          {job.description}
-        </p>
+        <div className="overflow-hidden">
+          <p className='mb-3 font-normal text-gray-400'>
+            {job.description}...
+          </p>
+        </div>
       </div>
 
       <div className="flex justify-between ">

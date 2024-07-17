@@ -7,7 +7,13 @@ import { ApplicationContext } from "../../../context/ApplicationContext";
 import ConfirmDelete from "../Shared/ConfirmDelete";
 import { AuthContext } from "../../../context/AuthContext";
 
-const ApplicationCard = ({ application, job_id, job_title, onDelete, onUpdate }) => {
+const ApplicationCard = ({
+  application,
+  job_id,
+  job_title,
+  onDelete,
+  onUpdate,
+}) => {
   const { deleteApplication, getApplicationById, updateApplicationStatus } =
     useContext(ApplicationContext);
   const { role } = useContext(AuthContext);
@@ -27,7 +33,10 @@ const ApplicationCard = ({ application, job_id, job_title, onDelete, onUpdate })
 
   const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
-    const updatedApplication = await updateApplicationStatus(application.id, newStatus);
+    const updatedApplication = await updateApplicationStatus(
+      application.id,
+      newStatus
+    );
     onUpdate(updatedApplication); // Call the onUpdate callback with the updated application data
     setStatus(newStatus);
   };
@@ -45,16 +54,16 @@ const ApplicationCard = ({ application, job_id, job_title, onDelete, onUpdate })
   // Determine the status color class
   const getStatusColorClass = (status) => {
     switch (status) {
-      case 'submitted':
-        return 'text-green-600';
-      case 'under_review':
-        return 'text-yellow-600';
-      case 'accepted':
-        return 'text-green-800';
-      case 'rejected':
-        return 'text-red-600';
+      case "submitted":
+        return "text-green-600";
+      case "under review":
+        return "text-yellow-600";
+      case "accepted":
+        return "text-green-800";
+      case "rejected":
+        return "text-red-600";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -62,39 +71,60 @@ const ApplicationCard = ({ application, job_id, job_title, onDelete, onUpdate })
     <div className='relative max-w-sm p-6 border rounded-lg shadow bg-gray-800 border-gray-700'>
       <div className='h-4/5'>
         <NavLink to={`/jobdetails/${job_id}`}>
-          <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 capitalize dark:text-white'>
-            {job_title}
+          <h5 className='text-lg font-semibold tracking-tight capitalize text-gray-300'>
+            Job Title:{" "}<span className='text-white text-lg'>{job_title}</span>
           </h5>
         </NavLink>
-        <p className={`text-gray-200 capitalize`}>Status: <span className={`${getStatusColorClass(status)}`}>{status}</span></p>
+        <h5 className='text-lg font-semibold tracking-tight capitalize text-gray-400'>
+          Applicant:{" "}
+          <span className='text-white text-lg'>{application.name}</span>
+        </h5>
+
+        <h5 className='text-lg font-semibold capitalize text-gray-300'>
+          Years of experience:{" "}
+          <span className='inline-block text-white text-lg'>
+            {application.years_of_experience}
+          </span>
+        </h5>
+
+        <h5 className='text-lg font-semibold capitalize text-gray-300 '>
+          Skills:{" "}
+          <span className='inline-block text-white text-lg'>
+            {application.skills}
+          </span>{" "}
+        </h5>
+        {role === "employer" && (
+          <p className={`text-gray-200 capitalize`}>
+            Status:{" "}
+            <span className={`${getStatusColorClass(status)}`}>{status}</span>
+          </p>
+        )}
       </div>
 
-      <div className='flex justify-between '>
+      <div className='flex justify-between mt-2 '>
         <button>
           <NavLink
             to={`/applicationdetails/${application.id}`}
-            className='inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+            className='inline-flex items-center px-3 py-2 text-sm font-semibold text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 sm:p-2'
           >
-            more info..
-            <HiArrowLongRight className='ms-2' />
+            see more..
+            <HiArrowLongRight className='ms-2 sm:hidden' />
           </NavLink>
         </button>
         {role === "job_seeker" ? (
           <button
             onClick={handleShowStatus}
-            className='inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+            className='inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 sm:p-2'
           >
             Check status
-            <HiArrowLongRight className='ms-2' />
           </button>
         ) : (
           <div>
             <button
               onClick={handleShowStatus}
-              className='inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+              className='inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 sm:p-2 tracking-tight'
             >
               Update Status
-              <HiArrowLongRight className='ms-2' />
             </button>
           </div>
         )}
@@ -121,8 +151,8 @@ const ApplicationCard = ({ application, job_id, job_title, onDelete, onUpdate })
                 Update Application Status?
               </h1>
               <p className='mb-4'>Check Status Of your Application</p>
-                {/* dropdown */}
-              <div className="mb-5 p-4">
+              {/* dropdown */}
+              <div className='mb-5 p-4'>
                 <label
                   htmlFor='status'
                   className='block text-sm font-medium text-gray-900'
@@ -139,7 +169,7 @@ const ApplicationCard = ({ application, job_id, job_title, onDelete, onUpdate })
                 >
                   <option value=''>Please Select</option>
                   <option value='submitted'>Submitted</option>
-                  <option value='under_review'>Under Review</option>
+                  <option value='under review'>Under Review</option>
                   <option value='accepted'>Accepted</option>
                   <option value='rejected'>Rejected</option>
                 </select>
@@ -159,7 +189,12 @@ const ApplicationCard = ({ application, job_id, job_title, onDelete, onUpdate })
               <h1 className='font-semibold text-2xl mb-4'>
                 Status Of your Application
               </h1>
-              <p className={`mb-4 capitalize font-semibold text-lg `}>Status: <span className={`${getStatusColorClass(status)}`}>{status}</span></p>
+              <p className={`mb-4 capitalize font-semibold text-lg `}>
+                Status:{" "}
+                <span className={`${getStatusColorClass(status)}`}>
+                  {status}
+                </span>
+              </p>
               <div className='flex justify-around gap-10'>
                 <button
                   onClick={cancel}
