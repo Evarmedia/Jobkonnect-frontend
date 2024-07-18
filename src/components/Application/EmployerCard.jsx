@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 const EmployerCard = ({ employer }) => {
     return (
-        <div className='bg-white shadow-md rounded p-4 text-lg'>
+        <div className='capitalize bg-white shadow-md rounded p-4 text-lg'>
           <p>
             <strong>Name:</strong> {employer.username}
           </p>
@@ -11,8 +11,8 @@ const EmployerCard = ({ employer }) => {
           <p>
             <strong>Phone:</strong> {employer.phone_number}
           </p>
-          <p>
-            <a href={employer.website} target='_blank'><strong>Website:</strong> {employer.website}</a>
+          <p >
+            <a href={employer.website} target='_blank'><strong>Website:</strong> <span className="underline lowercase text-blue-600">{employer.website}</span></a>
           </p>
           <p>
             <strong>Company Name:</strong> {employer.company_name}

@@ -155,7 +155,7 @@ const Register = () => {
                     <label className="text-sm mb-1 block">Company Website</label>
                     <div className="relative flex items-center">
                       <input
-                        type="text"
+                        type="url"
                         placeholder="Enter company website"
                         className="w-full text-sm border border-gray-300 px-4 py-2 rounded-md outline-[#333]"
                         value={website}

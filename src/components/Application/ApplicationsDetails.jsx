@@ -10,24 +10,28 @@ const ApplicationsDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({ title: "", url: "" });
   const [application, setApplication] = useState(null);
+  const [employerDetails, setEmployerDetails] = useState(null); // State for employer details
 
   const { getApplicationById } = useContext(ApplicationContext);
-  const { user } = useContext(AuthContext);
+  const { user, getUserById } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchApplication = async () => {
       if (application_id) {
         try {
           const response = await getApplicationById(application_id);
-          // console.log(response);
           setApplication(response);
+
+          // Fetch employer details
+          const employerResponse = await getUserById(response.employer_id);
+          setEmployerDetails(employerResponse); // Store employer details
         } catch (error) {
           console.error("Error fetching application:", error);
         }
       }
     };
     fetchApplication();
-  }, [getApplicationById, application_id]);
+  }, [getApplicationById, getUserById, application_id]);
 
   const openModal = (title, url) => {
     setModalContent({ title, url });
@@ -46,7 +50,7 @@ const ApplicationsDetails = () => {
     <div className='container mx-auto p-4 relative'>
       {user.role === "employer" ? (
         <>
-          <h2 className='text-2xl font-bold mb-4'>Application Details</h2>
+          <h2 className='text-2xl font-bold mb-4 text-center'>Application Details</h2>
           <div className='bg-white shadow-md rounded p-4'>
             <p>
               <strong>Applicant Name:</strong> {application.name}
@@ -70,7 +74,7 @@ const ApplicationsDetails = () => {
               <strong>Skills:</strong> {application.skills}
             </p>
             <p>
-              <strong>Portfolio:</strong>{" "}
+              <strong>Portfolio:</strong>
               <a
                 href={application.portfolio}
                 target='_blank'
@@ -136,8 +140,14 @@ const ApplicationsDetails = () => {
         </>
       ) : (
         <>
-          <h2 className='text-2xl font-bold mb-4 text-center'>Employer Details</h2>
-          <EmployerCard employer={user} />
+          <h2 className='text-2xl font-bold mb-4 text-center'>
+            Employer Details
+          </h2>
+          {employerDetails ? (
+            <EmployerCard employer={employerDetails} />
+          ) : (
+            <div>Loading employer details...</div>
+          )}
         </>
       )}
 

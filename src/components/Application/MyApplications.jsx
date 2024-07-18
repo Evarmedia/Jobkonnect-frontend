@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
 import ApplicationCard from "./ApplicationCard";
 import { ApplicationContext } from "../../../context/ApplicationContext";
@@ -20,7 +20,7 @@ const MyApplications = () => {
   useEffect(() => {
     // Redirect to login if not authorized
     if (!isAuthorized) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
@@ -44,7 +44,7 @@ const MyApplications = () => {
       const userDetails = {};
       for (const app of applications) {
         let details;
-        if (user.role === 'job_seeker') {
+        if (user.role === "job_seeker") {
           details = await getUserById(app.employer_id);
         } else {
           details = await getUserById(app.user_id);
@@ -64,15 +64,22 @@ const MyApplications = () => {
     };
 
     manageApplications();
-  }, [getApplicationbyRole, getUserById, user.role, getSingleJob, isAuthorized, navigate]);
+  }, [
+    getApplicationbyRole,
+    getUserById,
+    user.role,
+    getSingleJob,
+    isAuthorized,
+    navigate,
+  ]);
 
   const handleDeleteApplication = (applicationId) => {
-    setApplications(applications.filter(app => app.id !== applicationId));
+    setApplications(applications.filter((app) => app.id !== applicationId));
   };
 
   const handleUpdateApplication = (updatedApplication) => {
-    setApplications(prevApplications =>
-      prevApplications.map(app =>
+    setApplications((prevApplications) =>
+      prevApplications.map((app) =>
         app.id === updatedApplication.id ? updatedApplication : app
       )
     );
@@ -83,10 +90,10 @@ const MyApplications = () => {
   }
 
   return (
-    <section className="h-screen overflow-auto relative">
-      <h1 className="text-center font-bold text-2xl mt-4">APPLICATIONS PAGE</h1>
+    <section className='h-screen overflow-auto relative sm:p-9'>
+      {/* <h1 className="text-center font-bold text-2xl mt-4">APPLICATIONS PAGE</h1> */}
       {user && user.role === "job_seeker" ? (
-        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className='p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
           {applications.length <= 0 ? (
             <h4>No Applications Were Found</h4>
           ) : (
@@ -98,13 +105,13 @@ const MyApplications = () => {
                 onDelete={handleDeleteApplication} // Pass the callback function
                 onUpdate={handleUpdateApplication} // Pass the update callback function
                 job_title={jobDetails[application.id]?.title} // Pass the job title
-                job_id ={jobDetails[application.id]?.id} // Pass the job id
+                job_id={jobDetails[application.id]?.id} // Pass the job id
               />
             ))
           )}
         </div>
       ) : (
-        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">          
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
           {applications.length <= 0 ? (
             <h4>No Applications Found From JobSeekers</h4>
           ) : (
@@ -121,9 +128,12 @@ const MyApplications = () => {
           )}
         </div>
       )}
-      <div className="absolute top-3 left-4">
-        <BackButton />
-      </div>
+
+      {user.role === "job_seeker" && (
+        <div className='absolute top-3 left-4'>
+          <BackButton />
+        </div>
+      )}
     </section>
   );
 };

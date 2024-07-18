@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }) => {
         data
       );
 
-      console.log("Registration successful:", response.data);
+      // console.log("Registration successful:", response.data);
       toast.success(response.data.message);
       handleLogin({ email: data.email, password: data.password });
     } catch (error) {
