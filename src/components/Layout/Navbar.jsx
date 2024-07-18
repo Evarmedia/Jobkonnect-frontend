@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className='sticky top-0 z-50 bg-white shadow-md py-4 px-4 sm:px-10 font-sans  tracking-wide border-gray-400 border-b-2'>
+      <header className='sticky top-0 z-50 bg-white shadow-md py-1 px-4 sm:px-10 font-sans  tracking-wide border-gray-400 border-b-2'>
         <div className='flex items-center justify-between'>
           <h1 className='font-extrabold md:text-2xl text-blue-600 text-lg'>
             JobKonnect
@@ -49,7 +49,7 @@ const Navbar = () => {
               <li key={index}>
                 <NavLink
                   to={item.link}
-                  className='hover:text-blue-600 text-base font-semibold block hover:bg-blue-300 hover:rounded-full p-1 sm:border-0 border-b-2 border-gray-400'
+                  className='hover:text-blue-600 text-base font-semibold block hover:bg-blue-300 hover:rounded-full  sm:border-0 border-b-2 border-gray-400'
                 >
                   {item.title}
                 </NavLink>
