@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import { AuthContext } from "../../../context/AuthContext";
-import ResumeModal from "./ResumeModal";
 import ApplicationCard from "./ApplicationCard";
 import { ApplicationContext } from "../../../context/ApplicationContext";
 import { JobContext } from "../../../context/Jobcontext";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../Shared/BackButton";
 
 const MyApplications = () => {
   const { user, getUserById, isAuthorized } = useContext(AuthContext);
@@ -14,8 +14,6 @@ const MyApplications = () => {
 
   const [applications, setApplications] = useState([]);
   const [jobDetails, setJobDetails] = useState({});
-  const [modalOpen, setModalOpen] = useState(false);
-  const [resumeImageUrl, setResumeImageUrl] = useState("");
   const [userDetails, setUserDetails] = useState({});
   const navigate = useNavigate();
 
@@ -68,15 +66,6 @@ const MyApplications = () => {
     manageApplications();
   }, [getApplicationbyRole, getUserById, user.role, getSingleJob, isAuthorized, navigate]);
 
-  const openModal = (imageUrl) => {
-    setResumeImageUrl(imageUrl);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
   const handleDeleteApplication = (applicationId) => {
     setApplications(applications.filter(app => app.id !== applicationId));
   };
@@ -94,7 +83,7 @@ const MyApplications = () => {
   }
 
   return (
-    <section className="h-screen overflow-auto">
+    <section className="h-screen overflow-auto relative">
       <h1 className="text-center font-bold text-2xl mt-4">APPLICATIONS PAGE</h1>
       {user && user.role === "job_seeker" ? (
         <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -106,7 +95,6 @@ const MyApplications = () => {
                 key={application.id}
                 application={application}
                 userDetails={userDetails[application.id]}
-                openModal={openModal}
                 onDelete={handleDeleteApplication} // Pass the callback function
                 onUpdate={handleUpdateApplication} // Pass the update callback function
                 job_title={jobDetails[application.id]?.title} // Pass the job title
@@ -125,7 +113,6 @@ const MyApplications = () => {
                 key={application.id}
                 application={application}
                 userDetails={userDetails[application.id]}
-                openModal={openModal}
                 onDelete={handleDeleteApplication} // Pass the callback function
                 onUpdate={handleUpdateApplication} // Pass the update callback function
                 job_title={jobDetails[application.id]?.title} // Pass the job title
@@ -134,9 +121,9 @@ const MyApplications = () => {
           )}
         </div>
       )}
-      {modalOpen && (
-        <ResumeModal imageUrl={resumeImageUrl} onClose={closeModal} />
-      )}
+      <div className="absolute top-3 left-4">
+        <BackButton />
+      </div>
     </section>
   );
 };

@@ -166,7 +166,7 @@ const Createapplication = () => {
           Create Application
         </button>
         <div className="absolute top-4 sm:left-36 left-4">
-          <BackButton destination='/my_applications'/>
+          <BackButton />
         </div>
       </form>
     </div>

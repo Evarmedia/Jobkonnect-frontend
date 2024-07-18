@@ -3,6 +3,7 @@ import { ApplicationContext } from "../../../context/ApplicationContext";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import EmployerCard from "./EmployerCard";
+import BackButton from "../Shared/BackButton";
 
 const ApplicationsDetails = () => {
   const { application_id } = useParams();
@@ -42,7 +43,7 @@ const ApplicationsDetails = () => {
   }
 
   return (
-    <div className='container mx-auto p-4'>
+    <div className='container mx-auto p-4 relative'>
       {user.role === "employer" ? (
         <>
           <h2 className='text-2xl font-bold mb-4'>Application Details</h2>
@@ -135,10 +136,14 @@ const ApplicationsDetails = () => {
         </>
       ) : (
         <>
-          <h2 className='text-2xl font-bold mb-4'>Employer Details</h2>
+          <h2 className='text-2xl font-bold mb-4 text-center'>Employer Details</h2>
           <EmployerCard employer={user} />
         </>
       )}
+
+      <div className='absolute top-3 left-4'>
+        <BackButton />
+      </div>
     </div>
   );
 };

@@ -49,7 +49,7 @@ const Navbar = () => {
               <li key={index}>
                 <NavLink
                   to={item.link}
-                  className='hover:text-blue-600 text-base font-semibold block hover:bg-blue-300 hover:rounded-full hover:p-1 border-b-2 border-gray-400'
+                  className='hover:text-blue-600 text-base font-semibold block hover:bg-blue-300 hover:rounded-full p-1 sm:border-0 border-b-2 border-gray-400'
                 >
                   {item.title}
                 </NavLink>
