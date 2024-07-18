@@ -23,7 +23,9 @@ export const ApplicationProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user_id || !isAuthorized) return;
+    if (!user_id || !isAuthorized) {
+      return;
+    }
   }, [user_id, isAuthorized, role]);
 
   const createApplication = async (job_id, data) => {

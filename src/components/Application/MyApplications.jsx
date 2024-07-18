@@ -1,26 +1,31 @@
-/* eslint-disable no-undef */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import { AuthContext } from "../../../context/AuthContext";
 import ResumeModal from "./ResumeModal";
 import ApplicationCard from "./ApplicationCard";
 import { ApplicationContext } from "../../../context/ApplicationContext";
 import { JobContext } from "../../../context/Jobcontext";
+import { useNavigate } from "react-router-dom";
 
 const MyApplications = () => {
-  const { user, getUserById } = useContext(AuthContext);
-  const { getApplicationbyRole, } = useContext(ApplicationContext);
-  const { getSingleJob } = useContext(JobContext)
+  const { user, getUserById, isAuthorized } = useContext(AuthContext);
+  const { getApplicationbyRole } = useContext(ApplicationContext);
+  const { getSingleJob } = useContext(JobContext);
 
   const [applications, setApplications] = useState([]);
   const [jobDetails, setJobDetails] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [resumeImageUrl, setResumeImageUrl] = useState("");
   const [userDetails, setUserDetails] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Redirect to login if not authorized
+    if (!isAuthorized) {
+      navigate('/login');
+      return;
+    }
+
     const manageApplications = async () => {
       try {
         const response = await getApplicationbyRole();
@@ -32,8 +37,8 @@ const MyApplications = () => {
         // Fetch job details for each application
         await fetchJobDetails(response);
       } catch (error) {
-        console.error("Error fetching applications:", error);
-        toast.error(error.message || "Error fetching applications");
+        console.error("Error fetching applications", error);
+        toast.error("Error fetching applications");
       }
     };
 
@@ -61,7 +66,7 @@ const MyApplications = () => {
     };
 
     manageApplications();
-  }, [getApplicationbyRole, getUserById, user.role, getSingleJob]);
+  }, [getApplicationbyRole, getUserById, user.role, getSingleJob, isAuthorized, navigate]);
 
   const openModal = (imageUrl) => {
     setResumeImageUrl(imageUrl);
@@ -83,6 +88,10 @@ const MyApplications = () => {
       )
     );
   };
+
+  if (!isAuthorized) {
+    return null; // Return early if not authorized
+  }
 
   return (
     <section className="h-screen overflow-auto">

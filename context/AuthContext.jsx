@@ -19,9 +19,18 @@ export const AuthProvider = ({ children }) => {
   const [role, setRole] = useState("");
   const [user_id, setUser_id] = useState(null);
   const [user, setUser] = useState({});
-  const [initialLoad, setInitialLoad] = useState(true); // Add state to handle initial load
+  const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
+    const tokenExpiry = localStorage.getItem('token_expiration');
+
+    // Check if token has expired
+    if (tokenExpiry && new Date() > new Date(tokenExpiry)) {
+      console.log("Token has expired, logging out");
+      logout();
+      return;
+    }
+
     const storedUserId = localStorage.getItem("user_id");
     const storedRole = localStorage.getItem("role");
     const storedUser = localStorage.getItem("user");
@@ -30,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuthorized(true);
       setUser_id(storedUserId);
       setRole(storedRole);
-      setUser(JSON.parse(storedUser)); // Parse the stored user object
+      setUser(JSON.parse(storedUser));
 
       if (initialLoad) {
         navigate(`/dashboard/${storedUserId}`);
@@ -39,12 +48,11 @@ export const AuthProvider = ({ children }) => {
     } else {
       setInitialLoad(false);
     }
-  }, [navigate, initialLoad ]);
+  }, [navigate, initialLoad]);
 
-  // manage Login
   const handleLogin = async (credentials) => {
     setIsAuthorized(false);
-  
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/user/login",
@@ -58,12 +66,13 @@ export const AuthProvider = ({ children }) => {
       const user = response.data.user;
       
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token_expiration", user.token_expiration); // Make sure to store the token expiration
       localStorage.setItem("user_id", user.id);
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("role", user.role);
   
       setUser(user);
-      setRole(user.role); // note remove sub states and use only user later
+      setRole(user.role);
       setUser_id(user.id);
       setIsAuthorized(true);
       navigate(`/dashboard/${user.id}`);
@@ -74,7 +83,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // manage Register
   const handleRegister = async (data) => {
     try {
       console.log("Sending data", data);
@@ -84,7 +92,6 @@ export const AuthProvider = ({ children }) => {
       );
 
       console.log("Registration successful:", response.data);
-      // After successful registration, you might want to automatically log in the user
       toast.success(response.data.message);
       handleLogin({ email: data.email, password: data.password });
     } catch (error) {
@@ -102,10 +109,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // manage logout
   const logout = async () => {
     try {
       localStorage.removeItem("token");
+      localStorage.removeItem("token_expiration");
       localStorage.removeItem("user_id");
       localStorage.removeItem("role");
       localStorage.removeItem("user");

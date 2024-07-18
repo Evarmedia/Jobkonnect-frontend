@@ -43,13 +43,13 @@ const Navbar = () => {
           <ul
             className={`${
               isOpen ? "block" : "hidden"
-            } lg:flex absolute top-full px-4 right-0 bg-white lg:static lg:w-auto lg:bg-transparent lg:flex-row lg:items-center lg:space-x-0 lg:space-y-0 lg:gap-x-5 lg:gap-y-0 z-50`}
+            } lg:flex absolute top-full px-5 py-4 space-y-5 w-1/2 right-0 bg-white lg:static lg:w-auto lg:bg-transparent lg:flex-row lg:items-center lg:space-x-0 lg:space-y-0 lg:gap-x-5 lg:gap-y-0 z-50 h-fit`}
           >
             {menuItems.map((item, index) => (
               <li key={index}>
                 <NavLink
                   to={item.link}
-                  className='hover:text-blue-600 text-base font-semibold block hover:bg-blue-300 hover:rounded-full hover:p-1'
+                  className='hover:text-blue-600 text-base font-semibold block hover:bg-blue-300 hover:rounded-full hover:p-1 border-b-2 border-gray-400'
                 >
                   {item.title}
                 </NavLink>

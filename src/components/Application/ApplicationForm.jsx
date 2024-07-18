@@ -1,6 +1,7 @@
 import { useContext, useState, useRef } from "react";
 import { ApplicationContext } from "../../../context/ApplicationContext";
 import { useParams } from "react-router-dom";
+import BackButton from "../Shared/BackButton";
 
 const Createapplication = () => {
   const { job_id } = useParams();
@@ -58,8 +59,8 @@ const Createapplication = () => {
   };
 
   return (
-    <div className="p-5 sm:px-52 mb-10">
-      <h1 className="text-2xl font-bold mb-4">Create Application</h1>
+    <div className="p-5 sm:px-52 mb-10 relative">
+      <h1 className="text-2xl text-center font-bold mb-4">Create Application</h1>
       <form onSubmit={handleSubmit}>
         {/* Name */}
         <div className="mb-4">
@@ -164,6 +165,9 @@ const Createapplication = () => {
         >
           Create Application
         </button>
+        <div className="absolute top-4 sm:left-36 left-4">
+          <BackButton destination='/my_applications'/>
+        </div>
       </form>
     </div>
   );

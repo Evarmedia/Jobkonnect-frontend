@@ -55,7 +55,14 @@ const EmployerDashboard = () => {
       case "overview":
         return <Overview />;
       case "view_appplication":
-        return <MyApplications />;
+        return (
+          <div>
+            <h1 className='text-center font-bold text-2xl mt-4'>
+              APPLICATIONS PAGE
+            </h1>
+            <MyApplications />
+          </div>
+        );
       case "createJob":
         return <CreateJob />;
       case "viewjobs":
