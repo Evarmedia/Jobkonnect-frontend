@@ -10,6 +10,7 @@ import { TbAppsFilled } from "react-icons/tb";
 import { FaReact } from "react-icons/fa";
 import { GiArtificialIntelligence } from "react-icons/gi";
 import { IoGameController } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 
 const PopularCategories = () => {
   const categories = [
@@ -69,20 +70,22 @@ const PopularCategories = () => {
         <div className="flex flex-wrap justify-center gap-6">
           {categories.map((element) => {
             return (
-              <div
-                className="bg-gray-200 p-5 flex items-center gap-3 shadow-sm shadow-gray-300 hover:shadow-lg transition-all duration-300 w-full sm:w-fit"
-                key={element.id}
-              >
-                <div className="text-3xl p-2 bg-[#e9f9ff] text-[#2d5649] flex items-center justify-center">
-                  {element.icon}
+              <NavLink to={'/login'} key={element.id}>
+                <div
+                  className="bg-gray-200 p-5 flex items-center gap-3 shadow-sm shadow-gray-300 hover:shadow-lg transition-all duration-300 w-full sm:w-fit"
+                  
+                >
+                  <div className="text-3xl p-2 bg-[#e9f9ff] text-[#2d5649] flex items-center justify-center">
+                    {element.icon}
+                  </div>
+                  <div className="text">
+                    <p className="text-lg font-bold">{element.title}</p>
+                    <p className="text-sm font-light text-gray-500">
+                      {element.subTitle}
+                    </p>
+                  </div>
                 </div>
-                <div className="text">
-                  <p className="text-lg font-bold">{element.title}</p>
-                  <p className="text-sm font-light text-gray-500">
-                    {element.subTitle}
-                  </p>
-                </div>
-              </div>
+              </NavLink>
             );
           })}
         </div>
