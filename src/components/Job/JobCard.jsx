@@ -2,7 +2,7 @@
 import { useContext, useState } from "react";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { IoTrashBin } from "react-icons/io5";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { JobContext } from "../../../context/Jobcontext";
 import ConfirmDelete from "../Shared/ConfirmDelete";
 import { AuthContext } from "../../../context/AuthContext";

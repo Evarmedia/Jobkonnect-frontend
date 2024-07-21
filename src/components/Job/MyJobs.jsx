@@ -4,8 +4,9 @@ import { AuthContext } from "../../../context/AuthContext";
 import { JobContext } from "../../../context/Jobcontext";
 import JobCard from "./JobCard";
 import Loading from "../Shared/Loading";
+import Pagination from "./Pagination";
 
-const MyJobs = ({ searchQuery, jobType, location }) => {
+const MyJobs = ({ searchQuery, jobType, location, currentPage, jobsPerPage, onPageChange }) => {
   const { jobs, employer_jobs } = useContext(JobContext);
   const { role, user } = useContext(AuthContext);
 
@@ -14,31 +15,42 @@ const MyJobs = ({ searchQuery, jobType, location }) => {
     (job) =>
       job.title?.toLowerCase().includes(searchQuery.toLowerCase()) &&
       (jobType === "" || job.job_type === jobType) &&
-      (location === "" ||
-        job.location?.toLowerCase() === location.toLowerCase())
+      (location === "" || job.location?.toLowerCase() === location.toLowerCase())
   );
 
   const filteredEmployerJobs = employer_jobs?.filter(
     (job) =>
       job.title?.toLowerCase().includes(searchQuery.toLowerCase()) &&
       (jobType === "" || job.job_type === jobType) &&
-      (location === "" ||
-        job.location?.toLowerCase() === location.toLowerCase())
+      (location === "" || job.location?.toLowerCase() === location.toLowerCase())
   );
 
+  // Pagination
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
+
   return (
-    <div className='pt-5'>
-      <section className=''>
+    <div className='pt-5 flex flex-col sm:h-[690px]'>
+      <section className='flex-grow'>
         {user && role === "job_seeker" ? (
           <div>
             <h1 className='text-center text-2xl font-bold mb-5'>
               ALL AVAILABLE JOBS
             </h1>
-            {filteredJobs.length > 0 ? (
-              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
-                {filteredJobs.map((job) => (
-                  <JobCard key={job.id} job={job} />
-                ))}
+            {currentJobs.length > 0 ? (
+              <div>
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
+                  {currentJobs.map((job) => (
+                    <JobCard key={job.id} job={job} />
+                  ))}
+                </div>
+                <Pagination
+                  totalJobs={filteredJobs.length}
+                  jobsPerPage={jobsPerPage}
+                  currentPage={currentPage}
+                  onPageChange={onPageChange}
+                />
               </div>
             ) : (
               <div>

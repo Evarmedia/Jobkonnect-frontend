@@ -21,6 +21,9 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [initialLoad, setInitialLoad] = useState(true);
 
+  const deployedUrl = `https://tatenda1998.pythonanywhere.com/`;
+
+
   useEffect(() => {
     const tokenExpiry = localStorage.getItem('token_expiration');
 
@@ -48,6 +51,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setInitialLoad(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, initialLoad]);
 
   const handleLogin = async (credentials) => {
@@ -55,7 +59,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/login",
+        `${deployedUrl}/api/user/login`,
         credentials,
         {
           headers: {
@@ -87,7 +91,7 @@ export const AuthProvider = ({ children }) => {
     try {
       console.log("Sending data", data);
       const response = await axios.post(
-        `http://localhost:5000/api/user/register`,
+        `${deployedUrl}/api/user/register`,
         data
       );
 
@@ -102,7 +106,7 @@ export const AuthProvider = ({ children }) => {
 
   const getUserById = async (user_id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/user/${user_id}`);
+      const response = await axios.get(`${deployedUrl}/api/user/${user_id}`);
       return response.data;
     } catch (error) {
       console.error(error);

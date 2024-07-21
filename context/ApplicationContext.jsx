@@ -22,6 +22,8 @@ export const ApplicationProvider = ({ children }) => {
   const token = localStorage.getItem("token"); //NB:needed for headers later
   const navigate = useNavigate();
 
+  const deployedUrl = `https://tatenda1998.pythonanywhere.com/`;
+
   useEffect(() => {
     if (!user_id || !isAuthorized) {
       return;
@@ -31,7 +33,7 @@ export const ApplicationProvider = ({ children }) => {
   const createApplication = async (job_id, data) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/jobs/${job_id}/apply`,
+        `${deployedUrl}/api/jobs/${job_id}/apply`,
         data,
         {
           headers: {
@@ -55,7 +57,7 @@ export const ApplicationProvider = ({ children }) => {
   const getApplicationbyRole = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/applications`,
+        `${deployedUrl}/api/applications`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,7 +74,7 @@ export const ApplicationProvider = ({ children }) => {
   const getApplicationById = async (applicaion_id) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/application/${applicaion_id}`,
+        `${deployedUrl}/api/application/${applicaion_id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,7 +90,7 @@ export const ApplicationProvider = ({ children }) => {
   const updateApplicationStatus = async (application_id, newStatus) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/application/${application_id}`, 
+        `${deployedUrl}/api/application/${application_id}`, 
         { status: newStatus },
         {
           headers: {
@@ -107,7 +109,7 @@ export const ApplicationProvider = ({ children }) => {
   const deleteApplication = async (applicaion_id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/application/${applicaion_id}`,
+        `${deployedUrl}/api/application/${applicaion_id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import axios from "axios";
@@ -18,6 +19,9 @@ export const JobProvider = ({ children }) => {
   const { user_id, isAuthorized, role } = useContext(AuthContext);
   const token = localStorage.getItem("token");
 
+  const deployedUrl = `https://tatenda1998.pythonanywhere.com/`;
+
+
   useEffect(() => {
     const fetchJobs = async () => {
       if (!user_id || !isAuthorized) {
@@ -25,10 +29,10 @@ export const JobProvider = ({ children }) => {
       }
       try {
         if (role === "job_seeker") {
-          const response = await axios.get(`http://localhost:5000/api/jobs`);
+          const response = await axios.get(`${deployedUrl}/api/jobs`);
           setJobs(response.data);
         } else {
-          const response = await axios.get(`http://localhost:5000/api/jobs/employer/${user_id}`);
+          const response = await axios.get(`${deployedUrl}/api/jobs/employer/${user_id}`);
           setEmployer_jobs(response.data);
         }
       } catch (error) {
@@ -43,7 +47,7 @@ export const JobProvider = ({ children }) => {
     try {
       const jobData = { ...data, employer_id: user_id };
       const response = await axios.post(
-        `http://localhost:5000/api/jobs`,
+        `${deployedUrl}/api/jobs`,
         jobData,
         {
           headers: {
@@ -67,7 +71,7 @@ export const JobProvider = ({ children }) => {
   const getSingleJob = async (job_id) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/jobs/${job_id}`,
+        `${deployedUrl}/api/jobs/${job_id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -83,7 +87,7 @@ export const JobProvider = ({ children }) => {
   const deleteJob = async (job_id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/jobs/${job_id}`,
+        `${deployedUrl}/api/jobs/${job_id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

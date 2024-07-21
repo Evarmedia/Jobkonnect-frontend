@@ -87,9 +87,9 @@ const EmployerDashboard = () => {
                 className='p-2 border border-gray-300 font-semibold rounded-md'
               >
                 <option value=''>All Locations</option>
-                <option value='new_york'>New York</option>
-                <option value='san_francisco'>San Francisco</option>
-                <option value='los_angeles'>Los Angeles</option>
+                <option value='nairobi'>Nairobi</option>
+                <option value='south africa'>South Africa</option>
+                <option value='london'>London</option>
                 <option value='Lagos'>Lagos</option>
               </select>
             </div>
@@ -229,7 +229,7 @@ const EmployerDashboard = () => {
           </div>
         </header>
 
-        <div className='h-screen p-2 overflow-scroll'>{renderView()}</div>
+        <div className='max-h-screen p-2 overflow-y-scroll'>{renderView()}</div>
       </div>
     </div>
   );

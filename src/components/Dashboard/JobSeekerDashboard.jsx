@@ -11,6 +11,8 @@ const JobSeekerDashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [jobType, setJobType] = useState("");
   const [location, setLocation] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const jobsPerPage = 10;
 
   useEffect(() => {
     if (!isAuthorized) {
@@ -34,8 +36,12 @@ const JobSeekerDashboard = () => {
     setLocation(e.target.value);
   };
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
-    <section className='h-screen overflow-y-auto pb-10'>
+    <section className='pb-10'>
       {/* user navbar */}
       <div className='flex justify-between items-center gap-2 mr-2 sm:mr-4 '>
        <NavLink to={`/my_applications`}>
@@ -48,7 +54,7 @@ const JobSeekerDashboard = () => {
          <FaUser className='text-3xl rounded-full border-2 border-red-700 cursor-pointer' />
        </div>
       </div>
-      <div className='flex justify-center flex-col items-center'>
+      <div className='flex justify-center flex-col sm:flex-row gap-5 items-center'>
         {/* Search */}
         <div className=''>
           <label
@@ -110,6 +116,9 @@ const JobSeekerDashboard = () => {
             searchQuery={searchQuery}
             jobType={jobType}
             location={location}
+            currentPage={currentPage}
+            jobsPerPage={jobsPerPage}
+            onPageChange={handlePageChange}
           />
         </div>
       </div>
