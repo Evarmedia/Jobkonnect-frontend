@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
-import Contributor from "./Contributor";
 import contributor1Img from "../../../public/contributor1Img.jpg";
+import contributorIMG2 from "../../../public/contributorIMG2.jpg";
+import Contributor from "./Contributor";
+
+
 
 const AboutPage = () => {
   return (
@@ -83,12 +86,12 @@ const AboutPage = () => {
             </div>
             <div className='flex sm:gap-5 flex-wrap justify-center'>
               <Contributor
-                imgSrc={'asd'}
+                imgSrc={contributorIMG2}
                 name='Tatenda Torerwa'
                 description='Backend Developer'
                 linkedin='https://www.linkedin.com/in/tatenda-torerwa-14a592277/'
                 github='https://github.com/tatendatorerwa'
-                twitter='https://twitter.com/mosicodes'
+                twitter='https://x.com/TorerwaTat69965'
               />
             </div>
           </div>
