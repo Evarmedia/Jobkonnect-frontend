@@ -2,6 +2,8 @@ import { useContext, useState, useRef } from "react";
 import { ApplicationContext } from "../../../context/ApplicationContext";
 import { useParams } from "react-router-dom";
 import BackButton from "../Shared/BackButton";
+import Confetti from "react-confetti";
+import { useWindowSize } from "@react-hook/window-size";
 
 const Createapplication = () => {
   const { job_id } = useParams();
@@ -15,9 +17,10 @@ const Createapplication = () => {
     skills: "",
   });
   const { createApplication } = useContext(ApplicationContext);
-  
+  const [showConfetti, setShowConfetti] = useState(false);
   const resumeRef = useRef(null);
   const coverLetterRef = useRef(null);
+  const [width, height] = useWindowSize();
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -53,6 +56,8 @@ const Createapplication = () => {
       });
       if (resumeRef.current) resumeRef.current.value = "";
       if (coverLetterRef.current) coverLetterRef.current.value = "";
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 5000); // Show confetti for 5 seconds
     } catch (error) {
       console.error("Error creating application:", error);
     }
@@ -60,6 +65,7 @@ const Createapplication = () => {
 
   return (
     <div className="p-5 sm:px-52 mb-10 relative">
+      {showConfetti && <Confetti width={width} height={height} />}
       <h1 className="text-2xl text-center font-bold mb-4">Create Application</h1>
       <form onSubmit={handleSubmit}>
         {/* Name */}

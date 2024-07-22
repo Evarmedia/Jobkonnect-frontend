@@ -46,7 +46,7 @@ export const ApplicationProvider = ({ children }) => {
       toast.success("Application created successfully");
       setTimeout(() => {
         navigate(`/dashboard/${user_id}`);
-      }, 1500);
+      }, 5000);
       return response.data;
     } catch (error) {
       console.error(error);

@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleRegister = async (data) => {
     try {
-      console.log("Sending data", data);
+      // console.log("Sending data", data);
       const response = await axios.post(
         `${deployedUrl}/api/user/register`,
         data

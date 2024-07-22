@@ -4,7 +4,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import ApplicationCard from "./ApplicationCard";
 import { ApplicationContext } from "../../../context/ApplicationContext";
 import { JobContext } from "../../../context/Jobcontext";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import BackButton from "../Shared/BackButton";
 
 const MyApplications = () => {
@@ -95,7 +95,12 @@ const MyApplications = () => {
       {user && user.role === "job_seeker" ? (
         <div className='p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
           {applications.length <= 0 ? (
-            <h4>No Applications Were Found</h4>
+            <h4 className='text-3xl font-semibold p-5 text-center col-span-5'>
+              You have not Applied to any{" "}
+              <NavLink to={`/dashboard/${user.id}`}>
+                <span className="underline text-blue-700 font-normal">Jobs</span>
+              </NavLink>
+            </h4>
           ) : (
             applications.map((application) => (
               <ApplicationCard
@@ -113,7 +118,7 @@ const MyApplications = () => {
       ) : (
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
           {applications.length <= 0 ? (
-            <h4>No Applications Found From JobSeekers</h4>
+            <h4 className='text-3xl font-semibold p-5 text-center col-span-5'>No Applications Found From JobSeekers</h4>
           ) : (
             applications.map((application) => (
               <ApplicationCard
