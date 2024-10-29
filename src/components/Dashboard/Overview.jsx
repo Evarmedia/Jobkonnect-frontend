@@ -5,7 +5,9 @@ const Overview = () => {
   return (
     <div>
       {/* Overview */}
-      <div className='p-5 flex flex-col space-y-6'>
+      <div className='p-4 flex flex-col space-y-6 min-h-screen'>
+        {/* Applications Jobs Notification*/}
+
         <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6'>
           <div className='bg-white border rounded-lg p-5 flex items-center justify-between'>
             <div className='flex items-center space-x-2 text-sm text-gray-400'>
@@ -30,6 +32,8 @@ const Overview = () => {
             <span className='text-lg font-semibold text-gray-700'>8</span>
           </div>
         </div>
+
+        {/* Recent Activity */}
         <div className='bg-white border rounded-lg p-5'>
           <div className='flex items-center justify-between mb-4'>
             <h2 className='text-lg font-semibold text-gray-700'>
@@ -49,11 +53,12 @@ const Overview = () => {
             </div>
           </div>
         </div>
+        
+        {/* Application Statistics */}
         <div className='bg-white border rounded-lg p-5'>
           <h2 className='text-lg font-semibold text-gray-700 mb-4'>
             Application Statistics
           </h2>
-
           <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6'>
             <div className='bg-gray-100 border rounded-lg p-5 flex items-center justify-between'>
               <div className='text-gray-600'>Total Applications</div>

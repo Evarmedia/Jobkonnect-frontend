@@ -31,7 +31,7 @@ const MyJobs = ({ searchQuery, jobType, location, currentPage, jobsPerPage, onPa
   const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
 
   return (
-    <div className='pt-2 flex flex-col sm:h-[680px] lg:h-[740px] relative'>
+    <div className='pt-2 flex flex-col sm:h-[680px] lg:h-[740px] relative overflow-y-scroll'>
       <section className='flex-grow'>
         {user && role === "job_seeker" ? (
           <div>

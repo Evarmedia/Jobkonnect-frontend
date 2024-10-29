@@ -102,7 +102,7 @@ const EmployerDashboard = () => {
                 <option value='Lagos'>Lagos</option>
               </select>
             </div>
-            <div className="bg-green-600">
+            <div className="">
               <MyJobs
                 searchQuery={searchQuery}
                 jobType={jobType}
@@ -119,8 +119,7 @@ const EmployerDashboard = () => {
   return (
     <div>
       <DashNav />
-
-      <div className='flex bg-gray-100'>
+      <div className='flex bg-gray-100 min-h-screen'>
         {/* side bar */}
         <aside className='hidden sm:flex sm:flex-col'>
           <div className='flex-grow flex flex-col justify-between text-gray-500 bg-gray-800'>
@@ -250,7 +249,7 @@ const EmployerDashboard = () => {
               </div>
             </div>
           </header>
-          <div className='max-h-screen p-2 overflow-y-scroll'>
+          <div className='max-h-screen p-2'>
             {renderView()}
           </div>
         </div>
