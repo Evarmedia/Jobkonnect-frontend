@@ -103,7 +103,6 @@ const Register = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <MdOutlineMailOutline className="text-xl text-gray-400 absolute right-4" />
                 </div>
               </div>
 
@@ -131,7 +130,6 @@ const Register = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
-                  <FaPencilAlt className="text-xl text-gray-400 absolute right-4" />
                 </div>
               </div>
 
@@ -147,7 +145,6 @@ const Register = () => {
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
                       />
-                      <FaPencilAlt className="text-xl text-gray-400 absolute right-4" />
                     </div>
                   </div>
 
@@ -161,7 +158,6 @@ const Register = () => {
                         value={website}
                         onChange={(e) => setWebsite(e.target.value)}
                       />
-                      <FaPencilAlt className="text-xl text-gray-400 absolute right-4" />
                     </div>
                   </div>
                 </>
@@ -179,7 +175,6 @@ const Register = () => {
                         value={firstname}
                         onChange={(e) => setFirstName(e.target.value)}
                       />
-                      <FaPencilAlt className="text-xl text-gray-400 absolute right-4" />
                     </div>
                   </div>
 
@@ -193,7 +188,6 @@ const Register = () => {
                         value={lastname}
                         onChange={(e) => setLastName(e.target.value)}
                       />
-                      <FaPencilAlt className="text-xl text-gray-400 absolute right-4" />
                     </div>
                   </div>
                 </>
@@ -209,7 +203,6 @@ const Register = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
-                  <FaPencilAlt className="text-xl text-gray-400 absolute right-4" />
                 </div>
               </div>
 
@@ -225,7 +218,7 @@ const Register = () => {
                 />
                 <label htmlFor="terms-condition" className="ml-3 block text-sm">
                   I accept the{" "}
-                  <span className="hover:underline text-blue-600">terms and conditions</span>
+                  <span className="underline text-blue-600 cursor-pointer">terms and conditions</span>
                 </label>
               </div>
 
@@ -233,7 +226,7 @@ const Register = () => {
                 <button
                   type="submit"
                   onClick={handleSubmit}
-                  className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none"
+                  className="w-full py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:shadow-sm hover:shadow-black focus:outline-none"
                   disabled={!termsAccepted} // Disable button if terms not accepted
                 >
                   Sign Up
@@ -242,7 +235,7 @@ const Register = () => {
 
               <p className="text-sm mt-6 text-center">
                 Already have an account?{" "}
-                <NavLink to="/login" className="text-blue-600 hover:underline ml-1">
+                <NavLink to="/login" className="text-blue-600 underline ml-1">
                   Login here
                 </NavLink>
               </p>

@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
 import { HiArrowLongRight } from "react-icons/hi2";
-import { IoTrashBin } from "react-icons/io5";
+// import { IoTrashBin } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { ApplicationContext } from "../../../context/ApplicationContext";
 import ConfirmDelete from "../Shared/ConfirmDelete";
 import { AuthContext } from "../../../context/AuthContext";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { Options } from "../Shared/Options";
 
 const ApplicationCard = ({
   application,
@@ -20,9 +22,14 @@ const ApplicationCard = ({
   const [showPopup, setShowPopup] = useState(false);
   const [showStatus, setShowStatus] = useState(false);
   const [status, setStatus] = useState(application.status);
+  const [showOptions, setShowOptions] = useState(false);
 
   const handleDeleteApplication = async () => {
     setShowPopup(true);
+  };
+
+  const handleOptions = () => {
+    setShowOptions(!showOptions);
   };
 
   const confirmDelete = async () => {
@@ -72,7 +79,7 @@ const ApplicationCard = ({
       <div className='h-4/5 overflow-hidden'>
         <NavLink to={`/jobdetails/${job_id}`}>
           <h5 className='text-lg font-semibold tracking-tight capitalize text-gray-300'>
-            Job Title:{" "}<span className='text-white text-lg'>{job_title}</span>
+            Job Title: <span className='text-white text-lg'>{job_title}</span>
           </h5>
         </NavLink>
         <h5 className='text-lg font-semibold tracking-tight capitalize text-gray-400'>
@@ -131,10 +138,10 @@ const ApplicationCard = ({
       </div>
 
       {role === "employer" && (
-        <button onClick={handleDeleteApplication}>
-          <IoTrashBin
+        <button onClick={handleOptions}>
+          <BsThreeDotsVertical
             title='Delete application'
-            className='absolute z-2 text-2xl text-white top-2 right-2 rounded-full bg-red-500 hover:bg-red-900'
+            className='absolute z-2 text-2xl text-white top-2 right-2  hover:bg-gray-800'
           />
         </button>
       )}
@@ -206,6 +213,10 @@ const ApplicationCard = ({
             </div>
           )}
         </div>
+      )}
+
+      {showOptions && (
+        <Options handleDeleteJob={handleDeleteApplication} />
       )}
     </div>
   );

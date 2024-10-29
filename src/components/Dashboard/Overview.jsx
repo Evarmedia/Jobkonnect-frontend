@@ -35,7 +35,7 @@ const Overview = () => {
             <h2 className='text-lg font-semibold text-gray-700'>
               Recent Activity
             </h2>
-            <button className='text-sm text-gray-600 hover:underline'>
+            <button className='text-sm text-blue-600 underline'>
               View all
             </button>
           </div>

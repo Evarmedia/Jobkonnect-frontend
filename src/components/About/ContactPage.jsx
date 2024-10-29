@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import Navbar from '../Layout/Navbar';
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -35,6 +35,8 @@ const ContactPage = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="container mx-auto p-6">
       <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
       <div className="bg-white shadow-md rounded p-6 max-w-lg mx-auto">
@@ -89,6 +91,7 @@ const ContactPage = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

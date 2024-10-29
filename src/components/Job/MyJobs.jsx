@@ -31,7 +31,7 @@ const MyJobs = ({ searchQuery, jobType, location, currentPage, jobsPerPage, onPa
   const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
 
   return (
-    <div className='pt-2 flex flex-col sm:h-[690px] relative'>
+    <div className='pt-2 flex flex-col sm:h-[680px] lg:h-[740px] relative'>
       <section className='flex-grow'>
         {user && role === "job_seeker" ? (
           <div>
@@ -63,7 +63,7 @@ const MyJobs = ({ searchQuery, jobType, location, currentPage, jobsPerPage, onPa
         ) : (
           <div className='container'>
             {filteredEmployerJobs?.length > 0 ? (
-              <div>
+              <div className="">
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
                   {filteredEmployerJobs.map((job) => (
                     <JobCard key={job.id} job={job} />

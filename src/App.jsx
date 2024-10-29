@@ -11,7 +11,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Home from "./components/Home/Home";
 import JobDetails from "./components/Job/JobDetails";
 import Footer from "./components/Layout/Footer";
-import Navbar from "./components/Layout/Navbar";
+// import Navbar from "./components/Layout/Navbar";
 import NotFound from "./components/NotFound/NotFound";
 import ApplicationsDetails from "./components/Application/ApplicationsDetails";
 import AboutPage from "./components/About/AboutPage";
@@ -24,7 +24,7 @@ function App() {
         <JobProvider>
           <ApplicationProvider>
             <div className='min-h-screen flex flex-col'>
-              <Navbar />
+              {/* <Navbar /> */}
               <main className='flex-grow'>
                 <Routes>
                   <Route path='/' element={<Home />} />

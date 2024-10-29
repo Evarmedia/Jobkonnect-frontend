@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { IoSearch } from "react-icons/io5";
 import MyJobs from "../Job/MyJobs";
+import Navbar from "../Layout/DashNav";
 
 const JobSeekerDashboard = () => {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ const JobSeekerDashboard = () => {
 
   return (
     <section className='pb-10'>
+      <Navbar />
       {/* user navbar */}
       <div className='flex justify-between items-center gap-2 mr-2 sm:mr-4 '>
        <NavLink to={`/my_applications`}>

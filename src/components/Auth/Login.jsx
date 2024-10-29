@@ -1,20 +1,25 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-unused-vars
 import React, { useContext, useState } from "react";
-import { FaEyeSlash, FaUserPlus } from "react-icons/fa";
+import { FaEyeSlash, FaEye, FaUserPlus } from "react-icons/fa";
 import { NavLink, useNavigate, } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { AuthContext } from "../../../context/AuthContext";
+// import { MdOutlineMailOutline } from "react-icons/md";
+
 
 
 const Login = () => {
-  const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const { handleLogin } = useContext(AuthContext);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +76,8 @@ const Login = () => {
                     }}
                     autoFocus
                   />
-                  <FaUserPlus className='text-xl text-gray-400 absolute right-4' />
+                  
+                  {/* <MdOutlineMailOutline className='text-xl text-gray-400 absolute left-4' /> */}
                 </div>
               </div>
               <div>
@@ -80,7 +86,7 @@ const Login = () => {
                   <input
                     name='password'
                     id='password'
-                    type='password'
+                    type={showPassword ? 'text' : 'password'}
                     required
                     className='w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#333]'
                     placeholder='Enter password'
@@ -89,7 +95,14 @@ const Login = () => {
                       setPassword(e.target.value);
                     }}
                   />
-                  <FaEyeSlash className='text-xl text-gray-400 absolute right-4 cursor-pointer' />
+
+                  <span onClick={togglePasswordVisibility}>
+
+
+                  {showPassword ? <FaEye className='text-xl text-gray-400 absolute right-4 top-3.5 cursor-pointer' /> : <FaEyeSlash className='text-xl text-gray-400 absolute right-4 top-3.5 cursor-pointer' />}
+
+                  </span>
+
                 </div>
               </div>
               <div className='flex items-center justify-between gap-2'>
@@ -105,7 +118,7 @@ const Login = () => {
                   </label>
                 </div>
                 <div className='text-sm'>
-                  <a href='#' className='text-blue-600 hover:underline'>
+                  <a href='#' className='text-blue-600 underline'>
                     Forgot your password?
                   </a>
                 </div>
@@ -114,7 +127,7 @@ const Login = () => {
                 {/* <NavLink to='/'> */}
                 <button
                   type='submit'
-                  className='w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none'
+                  className='w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:shadow-md hover:shadow-black focus:outline-none'
                 >
                   Log in
                 </button>
@@ -124,7 +137,7 @@ const Login = () => {
                 {`Don't have an account?`}{" "}
                 <NavLink
                   to='/register'
-                  className='text-blue-600 hover:underline ml-1 whitespace-nowrap'
+                  className='text-blue-600 underline ml-1 whitespace-nowrap'
                 >
                   Register here
                 </NavLink>
